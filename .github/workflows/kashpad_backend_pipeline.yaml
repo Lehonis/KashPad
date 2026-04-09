@@ -1,0 +1,43 @@
+name: Kashpad Backend CI/CD Pipeline
+
+on:
+  push:
+    branches:  
+      - main
+      - develop
+      - 'release/*'
+    paths:
+      - 'Kashpad-Backend/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+      - 'release/*'
+    paths:
+      - 'Kashpad-Backend/**'
+
+permissions:
+  pull_request: read
+
+jobs:
+  build-maven:
+    name: Build & Test Maven
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Kashpad-Backend
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v6
+      
+      - name: Setup Java JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: 'temurin'
+          cache: maven
+      
+      - name: Build & Test
+        run: mvn -B -fae verify
