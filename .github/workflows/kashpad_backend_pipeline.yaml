@@ -16,13 +16,13 @@ on:
     paths:
       - 'Kashpad-Backend/**'
 
-permissions:
-  pull_request: read
-
 jobs:
   build-maven:
     name: Build & Test Maven
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
 
     defaults:
       run:
