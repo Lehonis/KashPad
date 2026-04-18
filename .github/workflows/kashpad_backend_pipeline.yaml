@@ -28,6 +28,9 @@ jobs:
       run:
         working-directory: Kashpad-Backend
 
+    env:
+      PROFILE: dev
+
     steps:
       - name: Code Checkout
         uses: actions/checkout@v6
@@ -51,6 +54,9 @@ jobs:
     defaults:
       run:
         working-directory: Kashpad-Backend
+
+    env:
+      PROFILE: prod
 
     steps:
       - name: Code Checkout
@@ -77,6 +83,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: package
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
+
+    env:
+      PROFILE: prod
 
     steps:
       - name: Code Checkout
