@@ -4,6 +4,7 @@
  */
 package com.gvm.Kashpad.config;
 
+import com.gvm.Kashpad.config.logging.RequestLoggingInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,5 +33,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(new RequestLoggingInterceptor());
     }
 }
