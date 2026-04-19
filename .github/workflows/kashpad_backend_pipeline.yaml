@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       
       - name: Setup Java JDK
         uses: actions/setup-java@v5
@@ -42,8 +44,17 @@ jobs:
           distribution: 'temurin'
           cache: maven
       
-      - name: Build & Test
-        run: mvn -B -fae test
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Lehonis_KashPad
 
   package:
     name: Package Maven
