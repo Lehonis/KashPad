@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <SpringProfile name="local">
+        <Appenders>
+            <Console name="ConsoleAppender" target="SYSTEM_OUT">
+                <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p [%X{correlationID}] [%t] - %m%n"/>
+            </Console>
+            <RollingRandomAccessFile name="RollingFileAppender" 
+                                     fileName="logs/KashPad_Backend.log" 
+                                     filePattern="logs/$${date:yyyy-MM}/KashPad_Backend-%d{yyyy-MM-dd}-%i.log.gz">
+                <PatternLayout>
+                    <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%X{correlationID}] [%t] - %m%n</Pattern>
+                </PatternLayout>
+                <Policies>
+                    <TimeBasedTriggeringPolicy interval="1"
+                                               modulate="true"/>
+                    <SizeBasedTriggeringPolicy size="20 MB"/>
+                </Policies>
+                <DefaultRolloverStrategy max="5"/>
+            </RollingRandomAccessFile>
+        </Appenders>
+        <Loggers>
+            <AsyncLogger name="com.gvm.Kashpad"
+                         level="info"
+                         additivity="false">
+                <AppenderRef ref="RollingFileAppender"/>
+                <AppenderRef ref="ConsoleAppender"/>
+            </AsyncLogger>
+        </Loggers>
+    </SpringProfile>
+</Configuration>
+
