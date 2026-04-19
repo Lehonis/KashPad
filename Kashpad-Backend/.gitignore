@@ -29,10 +29,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 nbactions.xml
-nb-configurations.xml
+nb-configuration.xml
 
 ### VS Code ###
 .vscode/
 
 ### H2 Database Directory ###
 data/
+
+### Keystore Files ###
+**/keystore/
